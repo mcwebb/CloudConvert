@@ -8,7 +8,7 @@
  * 2013 by Lunaweb Ltd.
  * Feel free to use, modify or publish it.
  */
-namespace CloudConvert;
+namespace Mcwebb\CloudConvert;
 
 class Process {
 
