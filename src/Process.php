@@ -14,6 +14,8 @@ class Process {
 
 	private $apiKey;
 	private $url;
+	private $inputformat;
+	private $outputformat;
 	private $data;
 	private $options = array();
 
@@ -24,11 +26,13 @@ class Process {
 	 */
 	public function __construct($inputformat, $outputformat, User $user) {
 		$this->apiKey = $user->getApiKey();
+		$this->inputformat = $inputformat;
+		$this->outputformat = $outputformat;
 
 		$data = $this->req('https://api.cloudconvert.org/process', array(
 			'inputformat' => $inputformat,
 			'outputformat' => $outputformat,
-			'apikey' => $apiKey
+			'apikey' => $this->apiKey
 		));
 
 		if (strpos($data->url, 'http') === false)
@@ -64,11 +68,13 @@ class Process {
 	/*
 	 * Uploads the input file (server side)
 	 */
-	public function upload($filepath, $outputformat) {
+	public function upload($filepath) {
 		$this->req($this->url, array_merge(array(
 			'input' => 'upload',
-			'format' => $outputformat,
-			'file' => (class_exists('CURLFile') ? new CURLFile($filepath) : '@' . $filepath) // CURLFile is available PHP >= 5.5.0
+			'format' => $this->outputformat,
+			// added so that files without extensions will still work
+			'filename' =>  'input.'. $this->inputformat,
+			'file' => (class_exists('CURLFile') ? new \CURLFile($filepath) : '@' . $filepath) // CURLFile is available PHP >= 5.5.0
 		), $this->options));
 	}
 
@@ -97,7 +103,7 @@ class Process {
 	 */
 	public function status($action = null) {
 		if (empty($this->url))
-			throw new Exception("No process URL found! (Conversion not started)");
+			throw new \Exception("No process URL found! (Conversion not started)");
 		$this->data = $this->req($this->url . ($action ? '/' . $action : ''));
 		return $this->data;
 	}
@@ -123,13 +129,13 @@ class Process {
 			$time++;
 			$data = $this->status();
 			if ($data->step == 'error') {
-				throw new Exception($data->message);
+				throw new \Exception ($data->message);
 				return false;
 			} elseif ($data->step == 'finished' && isset($data->output) && isset($data->output->url)) {
 				return true;
 			}
 		}
-		throw new Exception('Timeout');
+		throw new \Exception('Timeout');
 		return false;
 	}
 
@@ -138,7 +144,7 @@ class Process {
 	 */
 	public function download($target) {
 		if (empty($this->data->output->url))
-			throw new Exception("No download URL found! (Conversion not finished or failed)");
+			throw new \Exception("No download URL found! (Conversion not finished or failed)");
 		if (strpos($this->data->output->url, 'http') === false)
 			$this->data->output->url = "https:" . $this->data->output->url;
 		$fp = fopen($target, 'w+');
@@ -146,7 +152,7 @@ class Process {
 		curl_setopt($ch, CURLOPT_URL, $this->data->output->url);
 		curl_setopt($ch, CURLOPT_FILE, $fp);
 		if (!curl_exec($ch)) {
-			throw new Exception(curl_error($ch));
+			throw new \Exception(curl_error($ch));
 		}
 		curl_close($ch);
 		fclose($fp);
@@ -157,7 +163,7 @@ class Process {
 	 */
 	public function downloadStream() {
 		if (empty($this->data->output->url))
-			throw new Exception("No download URL found! (Conversion not finished or failed)");
+			throw new \Exception("No download URL found! (Conversion not finished or failed)");
 		if (strpos($this->data->output->url, 'http') === false)
 			$this->data->output->url = "https:" . $this->data->output->url;
 
@@ -197,11 +203,11 @@ class Process {
 		$return = curl_exec($ch);
 
 		if ($return === FALSE) {
-			throw new Exception(curl_error($ch));
+			throw new \Exception(curl_error($ch));
 		} else {
 			$json = json_decode($return);
 			if (isset($json->error))
-				throw new Exception($json->error);
+				throw new \Exception($json->error);
 			return $json;
 		}
 		curl_close($ch);
