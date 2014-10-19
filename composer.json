@@ -1,0 +1,21 @@
+{
+    "name": "mcwebb/cloudconvert",
+    "type": "library",
+    "description": "A OOPy PHP wrapper for CloudConvert's API",
+    "keywords": ["cloudconvert", "oop", "curl", "wrapper", "api"],
+    "homepage": "https://github.com/mcwebb/CloudConvert",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthew Webb",
+            "email": "matthewowebb@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": { "Mcwebb\\CloudConvert": "src" }
+    },
+    "target-dir": "Mcwebb/CloudConvert"
+}
