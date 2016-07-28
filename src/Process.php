@@ -21,7 +21,7 @@ class Process {
 
 	/*
 	 * creates new Process ID.
-	 * see: https://cloudconvert.org/page/api#start
+	 * see: https://cloudconvert.com/api#start
 	 *
 	 */
 	public function __construct($inputformat, $outputformat, User $user) {
@@ -29,7 +29,7 @@ class Process {
 		$this->inputformat = $inputformat;
 		$this->outputformat = $outputformat;
 
-		$data = $this->req('https://api.cloudconvert.org/process', array(
+		$data = $this->req('https://api.cloudconvert.com/process', array(
 			'inputformat' => $inputformat,
 			'outputformat' => $outputformat,
 			'apikey' => $this->apiKey
