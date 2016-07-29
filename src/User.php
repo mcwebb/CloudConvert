@@ -10,14 +10,31 @@
  */
 namespace Mcwebb\CloudConvert;
 
-class User {
+/**
+ * Class User
+ * @package Mcwebb\CloudConvert
+ */
+class User
+{
+    /**
+     * @var string API key for CloudConvert
+     */
     private $apiKey;
 
-    public function __construct($apiKey) {
+    /**
+     * User constructor.
+     * @param string $apiKey
+     */
+    public function __construct($apiKey)
+    {
         $this->apiKey = $apiKey;
     }
 
-    public function getApiKey() {
+    /**
+     * @return string
+     */
+    public function getApiKey()
+    {
         return $this->apiKey;
     }
 }
