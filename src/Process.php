@@ -66,8 +66,8 @@ class Process
         $this->outputFormat = $outputFormat;
 
         $data = $this->req(self::API_PROCESS_URL, array(
-            'inputFormat' => $inputFormat,
-            'outputFormat' => $outputFormat,
+            'inputformat' => $inputFormat,
+            'outputformat' => $outputFormat,
             'apikey' => $this->apiKey
         ));
 
