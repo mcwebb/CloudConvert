@@ -1,7 +1,7 @@
 {
-    "name": "mcwebb/cloudconvert",
+    "name": "alexberriman/cloudconvert",
     "type": "library",
-    "description": "A OOPy PHP wrapper for CloudConvert's API",
+    "description": "Fork of mcwebb/cloudconvert which uses the correct .com endpoint",
     "keywords": ["cloudconvert", "oop", "curl", "wrapper", "api"],
     "homepage": "https://github.com/mcwebb/CloudConvert",
     "license": "MIT",
