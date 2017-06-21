@@ -8,11 +8,11 @@
  * 2013 by Lunaweb Ltd.
  * Feel free to use, modify or publish it.
  */
-namespace Mcwebb\CloudConvert;
+namespace alexberriman\cloudconvert;
 
 /**
  * Class Process
- * @package Mcwebb\CloudConvert
+ * @package alexberriman\cloudconvert
  */
 class Process
 {

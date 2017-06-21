@@ -24,3 +24,6 @@ Icon?
 
 # IntelliJ
 /.idea
+
+# Composer
+vendor/
