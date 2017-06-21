@@ -8,16 +8,33 @@
  * 2013 by Lunaweb Ltd.
  * Feel free to use, modify or publish it.
  */
-namespace Mcwebb\CloudConvert;
+namespace alexberriman\cloudconvert;
 
-class User {
+/**
+ * Class User
+ * @package alexberriman\cloudconvert
+ */
+class User
+{
+    /**
+     * @var string API key for CloudConvert
+     */
     private $apiKey;
 
-    public function __construct($apiKey) {
+    /**
+     * User constructor.
+     * @param string $apiKey
+     */
+    public function __construct($apiKey)
+    {
         $this->apiKey = $apiKey;
     }
 
-    public function getApiKey() {
+    /**
+     * @return string
+     */
+    public function getApiKey()
+    {
         return $this->apiKey;
     }
 }
